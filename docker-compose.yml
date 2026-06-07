@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: veyanix_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - veyanix_db_data:/app/veyanix_db
+      - veyanix_workspace_data:/app/veyanix_workspace
+      - veyanix_sandbox_data:/app/veyanix_sandbox
+    environment:
+      - DATABASE_URL=sqlite:///./veyanix_db/veyanix.db
+      - WORKSPACE_DIR=./veyanix_workspace
+      - SANDBOX_DIR=./veyanix_sandbox
+      - SECRET_KEY=veyanix_production_signing_key_39281723
+      - GEMINI_API_KEY=
+    restart: always
+
+  frontend:
+    image: node:20-slim
+    container_name: veyanix_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  veyanix_db_data:
+  veyanix_workspace_data:
+  veyanix_sandbox_data:

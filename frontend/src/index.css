@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-slate-100 font-sans select-none overflow-hidden bg-slate-950;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Glassmorphism Window Styling */
+.glass-window {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.glass-window.active {
+  background: rgba(15, 23, 42, 0.55);
+  border-color: rgba(99, 102, 241, 0.25); /* Subtle Indigo tint for focused window */
+  box-shadow: 0 32px 80px -12px rgba(99, 102, 241, 0.15), 0 16px 40px -16px rgba(0, 0, 0, 0.6);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Monaco override styles */
+.monaco-editor {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Custom visual helper nodes for RAG Graph */
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+  }
+}
+
+.node-pulse {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
