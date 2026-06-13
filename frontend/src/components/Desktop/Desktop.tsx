@@ -126,8 +126,9 @@ export const Desktop: React.FC = () => {
       
       {/* Decorative cosmic background dust elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.06),transparent_65%)] pointer-events-none" />
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-purple-500/5 rounded-full filter blur-[120px] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-500/5 rounded-full filter blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '6s' }} />
+      <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-purple-500/5 rounded-full filter blur-[130px] pointer-events-none orb-1" />
+      <div className="absolute bottom-1/4 right-1/4 w-[550px] h-[550px] bg-indigo-500/5 rounded-full filter blur-[140px] pointer-events-none orb-2" />
+      <div className="absolute top-1/3 right-1/3 w-[400px] h-[400px] bg-cyan-500/5 rounded-full filter blur-[120px] pointer-events-none orb-3" />
 
       {/* 1. Global menu header top bar */}
       <TopBar 

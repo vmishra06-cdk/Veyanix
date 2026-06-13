@@ -97,8 +97,9 @@ export const App: React.FC = () => {
       <div className="w-screen h-screen bg-slate-950 flex items-center justify-center relative select-none font-sans overflow-hidden">
         {/* Background glowing rings */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.08),transparent_65%)] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-[120px] pointer-events-none animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full filter blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '6s' }} />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full filter blur-[140px] pointer-events-none orb-1" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-purple-500/10 rounded-full filter blur-[150px] pointer-events-none orb-2" />
+        <div className="absolute top-1/3 right-1/3 w-[450px] h-[450px] bg-cyan-500/10 rounded-full filter blur-[130px] pointer-events-none orb-3" />
 
         {/* Authentication Card */}
         <div className="w-96 p-6 rounded-2xl glass-window border-slate-800 shadow-2xl relative z-10 animate-scale-in">
