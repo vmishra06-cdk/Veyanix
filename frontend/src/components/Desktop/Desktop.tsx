@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { focusWindow } from '../../store/uiSlice';
 import { upsertTask } from '../../store/taskSlice';
+import { WS_BASE_URL } from '../../config';
 
 // Desktop Sub-components
 import { TopBar } from './TopBar';
@@ -54,7 +55,7 @@ export const Desktop: React.FC = () => {
 
   // Initialize global system metrics telemetry WebSocket
   useEffect(() => {
-    const wsUrl = `ws://localhost:8000/api/v1/ws/${clientIdRef.current}/global_system?username=${encodeURIComponent(username)}`;
+    const wsUrl = `${WS_BASE_URL}/api/v1/ws/${clientIdRef.current}/global_system?username=${encodeURIComponent(username)}`;
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 

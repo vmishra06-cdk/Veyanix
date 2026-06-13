@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { API_BASE_URL } from '../../config';
 import { 
   ShieldAlert, ShieldCheck, Lock, Unlock, Eye, Trash2, 
   Terminal, UserCheck, AlertTriangle, Key, Clock, Shield 
@@ -45,7 +46,7 @@ export const SecurityApp: React.FC = () => {
     setAuditLoading(true);
     setAuditError(null);
     try {
-      const res = await fetch('http://localhost:8000/api/v1/security/audits', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/security/audits`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -75,7 +76,7 @@ export const SecurityApp: React.FC = () => {
     setScanResult(null);
 
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/security/scan/${scanFileId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/security/scan/${scanFileId}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });

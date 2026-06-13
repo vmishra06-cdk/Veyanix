@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { WS_BASE_URL } from '../../config';
 import { 
   Users, MessageSquare, Send, Globe, Code, MousePointer, 
   Terminal, ShieldCheck 
@@ -41,7 +42,7 @@ export const CollaborationApp: React.FC = () => {
       wsRef.current.close();
     }
 
-    const wsUrl = `ws://localhost:8000/api/v1/ws/${clientIdRef.current}/${roomId}?username=${encodeURIComponent(username)}`;
+    const wsUrl = `${WS_BASE_URL}/api/v1/ws/${clientIdRef.current}/${roomId}?username=${encodeURIComponent(username)}`;
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 

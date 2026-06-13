@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setTasks, upsertTask } from '../../store/taskSlice';
+import { API_BASE_URL } from '../../config';
 import { 
   Layers, Play, Clock, CheckCircle, AlertCircle, RefreshCw, 
   HelpCircle, Settings, ChevronRight 
@@ -26,7 +27,7 @@ export const TaskManagerApp: React.FC = () => {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/v1/tasks', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/tasks`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -57,7 +58,7 @@ export const TaskManagerApp: React.FC = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:8000/api/v1/tasks/dispatch', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/tasks/dispatch`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

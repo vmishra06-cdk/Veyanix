@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { API_BASE_URL } from '../../config';
 import Editor from '@monaco-editor/react';
 import { 
   Play, Terminal, Cpu, Clock, Code, AlertTriangle, 
@@ -77,7 +78,7 @@ export const IDEApp: React.FC = () => {
     if (!fileId) return;
 
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/files/download/${fileId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/download/${fileId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -103,7 +104,7 @@ export const IDEApp: React.FC = () => {
     setMetrics(null);
 
     try {
-      const res = await fetch('http://localhost:8000/api/v1/ide/run', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/ide/run`, {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -159,7 +160,7 @@ export const IDEApp: React.FC = () => {
       uploadFormData.append('file', codeBlob, `ide_code.${language === 'python' ? 'py' : 'js'}`);
       uploadFormData.append('path', `/ide_temp_${Date.now()}.${language === 'python' ? 'py' : 'js'}`);
 
-      const uploadRes = await fetch('http://localhost:8000/api/v1/files/upload', {
+      const uploadRes = await fetch(`${API_BASE_URL}/api/v1/files/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadFormData
@@ -169,7 +170,7 @@ export const IDEApp: React.FC = () => {
         const fileData = await uploadRes.json();
         
         // Execute review on newly created temporary file ID
-        const reviewRes = await fetch('http://localhost:8000/api/v1/ai/review', {
+        const reviewRes = await fetch(`${API_BASE_URL}/api/v1/ai/review`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` },
           body: new URLSearchParams({ file_id: fileData.id })
@@ -183,7 +184,7 @@ export const IDEApp: React.FC = () => {
         }
         
         // Clean up temporary file
-        await fetch(`http://localhost:8000/api/v1/files/${fileData.id}`, {
+        await fetch(`${API_BASE_URL}/api/v1/files/${fileData.id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -210,7 +211,7 @@ export const IDEApp: React.FC = () => {
       uploadFormData.append('file', codeBlob, `ide_scan.${language === 'python' ? 'py' : 'js'}`);
       uploadFormData.append('path', `/ide_scan_temp_${Date.now()}.${language === 'python' ? 'py' : 'js'}`);
 
-      const uploadRes = await fetch('http://localhost:8000/api/v1/files/upload', {
+      const uploadRes = await fetch(`${API_BASE_URL}/api/v1/files/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: uploadFormData
@@ -220,7 +221,7 @@ export const IDEApp: React.FC = () => {
         const fileData = await uploadRes.json();
         
         // Scan it
-        const scanRes = await fetch(`http://localhost:8000/api/v1/security/scan/${fileData.id}`, {
+        const scanRes = await fetch(`${API_BASE_URL}/api/v1/security/scan/${fileData.id}`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -231,7 +232,7 @@ export const IDEApp: React.FC = () => {
         }
         
         // Cleanup file
-        await fetch(`http://localhost:8000/api/v1/files/${fileData.id}`, {
+        await fetch(`${API_BASE_URL}/api/v1/files/${fileData.id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });

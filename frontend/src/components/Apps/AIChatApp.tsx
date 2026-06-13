@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { API_BASE_URL } from '../../config';
 import { 
   MessageSquare, Send, Sparkles, Database, Network, ChevronDown, 
   ChevronUp, CheckSquare, Square, FileText, Cpu, AlertCircle, HelpCircle
@@ -56,7 +57,7 @@ export const AIChatApp: React.FC = () => {
   const fetchSemanticGraph = async () => {
     setGraphLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/v1/ai/semantic-graph', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/ai/semantic-graph`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -95,7 +96,7 @@ export const AIChatApp: React.FC = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8000/api/v1/ai/chat', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/ai/chat`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setFiles, setCurrentPath, setSelectedFileId, addFileItem, removeFileItem } from '../../store/fileSystemSlice';
+import { API_BASE_URL } from '../../config';
 import { 
   Folder, FileCode, FileText, File, Upload, FolderPlus, FilePlus, 
   Trash2, Lock, Unlock, Eye, ArrowLeft, Clock, History, AlertTriangle, ShieldAlert
@@ -27,7 +28,7 @@ export const FileManagerApp: React.FC = () => {
   const fetchFiles = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/files?path=${encodeURIComponent(currentPath)}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/files?path=${encodeURIComponent(currentPath)}`, {
         headers
       });
       if (res.ok) {
@@ -62,7 +63,7 @@ export const FileManagerApp: React.FC = () => {
   const fetchVersions = async () => {
     if (!selectedFileId) return;
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/files/${selectedFileId}/versions`, { headers });
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/${selectedFileId}/versions`, { headers });
       if (res.ok) {
         const data = await res.json();
         setVersions(data);
@@ -76,7 +77,7 @@ export const FileManagerApp: React.FC = () => {
     if (!selectedFileId) return;
     setIsReadingContent(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/files/download/${selectedFileId}`, { headers });
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/download/${selectedFileId}`, { headers });
       if (res.ok) {
         const data = await res.json();
         if (data.is_text) {
@@ -109,7 +110,7 @@ export const FileManagerApp: React.FC = () => {
     formData.append('is_encrypted', 'false');
 
     try {
-      const res = await fetch('http://localhost:8000/api/v1/files/create', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/create`, {
         method: 'POST',
         headers,
         body: formData
@@ -142,7 +143,7 @@ export const FileManagerApp: React.FC = () => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/v1/files/upload', {
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/upload`, {
         method: 'POST',
         headers,
         body: formData
@@ -165,7 +166,7 @@ export const FileManagerApp: React.FC = () => {
   const handleDeleteFile = async (id: string) => {
     if (!confirm("Are you sure you want to delete this resource?")) return;
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/files/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/${id}`, {
         method: 'DELETE',
         headers
       });
@@ -181,7 +182,7 @@ export const FileManagerApp: React.FC = () => {
   const handleRestoreVersion = async (versionId: string) => {
     if (!selectedFileId) return;
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/files/${selectedFileId}/restore/${versionId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/files/${selectedFileId}/restore/${versionId}`, {
         method: 'POST',
         headers
       });
