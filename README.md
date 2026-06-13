@@ -1,5 +1,7 @@
 # Veyanix: Autonomous Intelligence Platform (Web OS)
 
+*Status: Deployed successfully on Vercel and Render.*
+
 Veyanix is a production-grade personal cloud operating system (Web OS) that showcases advanced Computer Science concepts across distributed systems, networking, databases, sandboxed code execution, cybersecurity, and artificial intelligence.
 
 ## Core Features
