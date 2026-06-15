@@ -22,7 +22,6 @@ interface UIState {
 
 const defaultWindows: Record<string, WindowState> = {
   file_manager: { id: 'file_manager', title: 'File Explorer', isOpen: false, isMinimized: false, isMaximized: false, x: 80, y: 80, width: 850, height: 550, zIndex: 1 },
-  ai_chat: { id: 'ai_chat', title: 'AI Assistant & RAG', isOpen: false, isMinimized: false, isMaximized: false, x: 150, y: 60, width: 480, height: 600, zIndex: 1 },
   ide: { id: 'ide', title: 'Online Sandbox IDE', isOpen: false, isMinimized: false, isMaximized: false, x: 220, y: 100, width: 900, height: 600, zIndex: 1 },
   collaboration: { id: 'collaboration', title: 'Team Collaboration Workspace', isOpen: false, isMinimized: false, isMaximized: false, x: 290, y: 120, width: 650, height: 480, zIndex: 1 },
   analytics: { id: 'analytics', title: 'System Analytics Telemetry', isOpen: false, isMinimized: false, isMaximized: false, x: 360, y: 140, width: 800, height: 500, zIndex: 1 },

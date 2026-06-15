@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { openWindow, focusWindow } from '../../store/uiSlice';
-import { FolderOpen, MessageSquare, Code2, Users, BarChart3, Layers, ShieldCheck } from 'lucide-react';
+import { FolderOpen, Code2, Users, BarChart3, Layers, ShieldCheck } from 'lucide-react';
 
 export const Dock: React.FC = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,6 @@ export const Dock: React.FC = () => {
 
   const dockItems = [
     { id: 'file_manager', label: 'File Explorer', icon: FolderOpen, color: 'text-blue-400 hover:bg-blue-950/30' },
-    { id: 'ai_chat', label: 'AI Chat & RAG', icon: MessageSquare, color: 'text-indigo-400 hover:bg-indigo-950/30' },
     { id: 'ide', label: 'Online IDE', icon: Code2, color: 'text-emerald-400 hover:bg-emerald-950/30' },
     { id: 'collaboration', label: 'Collaboration', icon: Users, color: 'text-purple-400 hover:bg-purple-950/30' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'text-amber-400 hover:bg-amber-950/30' },
