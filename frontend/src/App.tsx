@@ -18,10 +18,29 @@ export const App: React.FC = () => {
 
   // Validate existing session tokens on boot
   useEffect(() => {
-    const token = localStorage.getItem('veyanix_token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    const validateToken = async () => {
+      const token = localStorage.getItem('veyanix_token');
+      if (!token) return;
+      
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          setIsAuthenticated(true);
+        } else {
+          localStorage.removeItem('veyanix_token');
+          localStorage.removeItem('veyanix_role');
+          localStorage.removeItem('veyanix_username');
+          localStorage.removeItem('veyanix_user_id');
+          setIsAuthenticated(false);
+        }
+      } catch (e) {
+        console.error("Token validation failed:", e);
+      }
+    };
+    
+    validateToken();
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
