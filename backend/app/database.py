@@ -34,12 +34,13 @@ try:
     with engine.connect() as conn:
         pass
 except Exception as e:
-    logger.error(f"Database connection failed for URL: {settings.DATABASE_URL}. Error: {e}. Falling back to default local SQLite database.")
-    fallback_url = "sqlite:///./veyanix.db"
+    logger.error(f"Database connection failed for URL: {settings.DATABASE_URL}. Error: {e}. Falling back to writeable SQLite database in /tmp.")
+    fallback_url = "sqlite:////tmp/veyanix.db"
     engine = create_engine(
         fallback_url,
         connect_args={"check_same_thread": True} if not fallback_url.startswith("sqlite") else {"check_same_thread": False}
     )
+
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
