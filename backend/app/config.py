@@ -35,11 +35,18 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
+# Post-processing for Vercel Serverless environment compatibility (read-only filesystem override)
+if os.getenv("VERCEL") == "1":
+    settings.DATABASE_URL = "sqlite:////tmp/veyanix.db"
+    settings.WORKSPACE_DIR = "/tmp/veyanix_workspace"
+    settings.SANDBOX_DIR = "/tmp/veyanix_sandbox"
+
 # Post-processing to toggle mock mode if key is missing
 if settings.GEMINI_API_KEY:
     settings.USE_MOCK_AI = False
 else:
     settings.USE_MOCK_AI = True
+
 
 # Ensure workspace and sandbox directories exist with local fallbacks if permission denied
 try:
