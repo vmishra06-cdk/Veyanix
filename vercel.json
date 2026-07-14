@@ -1,13 +1,27 @@
 {
-  "cleanUrls": true,
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "framework": "vite"
+    },
+    "backend": {
+      "root": "backend"
+    }
+  },
   "rewrites": [
     {
-      "source": "/api/v1/:path*",
-      "destination": "/api/index.py"
+      "source": "/api/(.*)?",
+      "destination": {
+        "type": "service",
+        "service": "backend"
+      }
     },
     {
-      "source": "/(.*)",
-      "destination": "/$1"
+      "source": "/(.*)?",
+      "destination": {
+        "type": "service",
+        "service": "frontend"
+      }
     }
   ]
 }
