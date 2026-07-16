@@ -48,16 +48,23 @@ else:
     settings.USE_MOCK_AI = True
 
 
-# Ensure workspace and sandbox directories exist with local fallbacks if permission denied
+# Ensure workspace and sandbox directories exist with absolute fallbacks to /tmp if permission denied
 try:
     os.makedirs(settings.WORKSPACE_DIR, exist_ok=True)
 except Exception:
-    settings.WORKSPACE_DIR = "./veyanix_workspace"
-    os.makedirs(settings.WORKSPACE_DIR, exist_ok=True)
+    settings.WORKSPACE_DIR = "/tmp/veyanix_workspace"
+    try:
+        os.makedirs(settings.WORKSPACE_DIR, exist_ok=True)
+    except Exception:
+        pass
 
 try:
     os.makedirs(settings.SANDBOX_DIR, exist_ok=True)
 except Exception:
-    settings.SANDBOX_DIR = "./veyanix_sandbox"
-    os.makedirs(settings.SANDBOX_DIR, exist_ok=True)
+    settings.SANDBOX_DIR = "/tmp/veyanix_sandbox"
+    try:
+        os.makedirs(settings.SANDBOX_DIR, exist_ok=True)
+    except Exception:
+        pass
+
 
